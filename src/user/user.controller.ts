@@ -7,11 +7,11 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
-import { DeleteResult } from 'typeorm';
 
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 import { CreateUserDto, UpdateUserDto, ReturnUserDto } from './dto';
+import { ReturnDeleteResultDto } from '../dtos/return-delete-result.dto';
 
 @Controller('user')
 export class UserController {
@@ -45,7 +45,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number): Promise<DeleteResult> {
-    return this.userService.remove(id);
+  async remove(@Param('id') id: number): Promise<ReturnDeleteResultDto> {
+    return new ReturnDeleteResultDto(await this.userService.remove(id));
   }
 }

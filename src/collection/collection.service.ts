@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { UpdateCollectionDto } from './dto/update-collection.dto';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Collection } from './entities/collection.entity';
 
@@ -68,13 +68,25 @@ export class CollectionService {
   ): Promise<Collection> {
     const collection = await this.findById(id);
 
+    if (updateCollectionDto.name) {
+      const existCollection = await this.findByName(
+        updateCollectionDto.name,
+      ).catch(() => undefined);
+
+      if (existCollection) {
+        throw new BadRequestException(
+          `Collection name ${updateCollectionDto.name} already exists`,
+        );
+      }
+    }
+
     return this.collectionRepository.save({
       ...collection,
       ...updateCollectionDto,
     });
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<DeleteResult> {
     await this.findById(id);
 
     return this.collectionRepository.delete({ id });

@@ -3,7 +3,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from '../user.controller';
 import { UserService } from '../user.service';
 
-import { deleteResultMock } from '../../__mocks__/delete-result.mock';
+import {
+  deleteResultMock,
+  returnDeleteResultMock,
+} from '../../__mocks__/delete-result.mock';
 import { createUserMock, updateUserMock, userMock } from '../__mocks__';
 import { ReturnUserDto } from '../dto';
 
@@ -64,6 +67,6 @@ describe('UserController', () => {
   it('should return user on remove', async () => {
     const user = await controller.remove(userMock.id);
 
-    expect(user).toEqual(deleteResultMock);
+    expect(user).toEqual(returnDeleteResultMock);
   });
 });

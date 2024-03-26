@@ -1,6 +1,11 @@
-import { DeleteResult } from 'typeorm/driver/mongodb/typings';
+import { ReturnDeleteResultDto } from '../dtos/return-delete-result.dto';
+import { DeleteResult } from 'typeorm';
 
 export const deleteResultMock: DeleteResult = {
-  deletedCount: 1,
-  acknowledged: true,
+  raw: '',
+  affected: 1,
+};
+
+export const returnDeleteResultMock: ReturnDeleteResultDto = {
+  message: 'Data deleted successfully',
 };
