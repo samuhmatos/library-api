@@ -2,7 +2,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 
 import { User } from 'src/user/entities/user.entity';
+import { Book } from 'src/book/entities/book.entity';
+
 import { CreateTableUsers1708892842623 } from './migrations/1708892842623-create-table-users';
+import { CreateTableBook1711462465555 } from './migrations/1711462465555-create-table-book';
 
 @Module({
   imports: [
@@ -15,9 +18,12 @@ import { CreateTableUsers1708892842623 } from './migrations/1708892842623-create
           password: process.env.DB_PASSWORD,
           username: process.env.DB_USERNAME,
           database: process.env.DB_NAME,
-          entities: [User],
+          entities: [User, Book],
           migrationsRun: true,
-          migrations: [CreateTableUsers1708892842623],
+          migrations: [
+            CreateTableUsers1708892842623,
+            CreateTableBook1711462465555,
+          ],
         };
       },
     }),
