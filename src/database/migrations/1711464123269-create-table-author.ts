@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateTableCollection1711464123270 implements MigrationInterface {
-  private tableName = 'collection';
+export class CreateTableAuthor1711464123269 implements MigrationInterface {
+  private tableName = 'author';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
@@ -17,11 +17,8 @@ export class CreateTableCollection1711464123270 implements MigrationInterface {
           {
             name: 'name',
             type: 'varchar',
-            length: '100',
             isNullable: false,
-            isUnique: true,
           },
-
           {
             name: 'created_at',
             type: 'timestamp',

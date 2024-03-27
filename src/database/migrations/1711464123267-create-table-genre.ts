@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateTableBook1711462465555 implements MigrationInterface {
-  private tableName = 'book';
+export class CreateTableGenre1711464123267 implements MigrationInterface {
+  private tableName = 'genre';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
@@ -15,18 +15,8 @@ export class CreateTableBook1711462465555 implements MigrationInterface {
             isGenerated: true,
           },
           {
-            name: 'title',
+            name: 'name',
             type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'resume',
-            type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'quantity',
-            type: 'integer',
             isNullable: false,
           },
           {

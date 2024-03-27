@@ -4,12 +4,14 @@ import { Module } from '@nestjs/common';
 import { User } from 'src/user/entities/user.entity';
 import { Book } from 'src/book/entities/book.entity';
 import { Collection } from 'src/collection/entities/collection.entity';
+import { Author } from 'src/author/entities/author.entity';
 
 import { CreateTableUsers1708892842623 } from './migrations/1708892842623-create-table-users';
-import { CreateTableBook1711462465555 } from './migrations/1711462465555-create-table-book';
+import { CreateTableAuthor1711464123269 } from './migrations/1711464123269-create-table-author';
+import { CreateTableGenre1711464123267 } from './migrations/1711464123267-create-table-genre';
+import { CreateTablePublisher1711464123266 } from './migrations/1711464123266-create-table-publisher';
 import { CreateTableCollection1711464123270 } from './migrations/1711464123270-create-table-collection';
-import { AddColumnCollectionIdInTableCollection1711464743365 } from './migrations/1711464743365-add-column-collection-id-in-table-collection';
-import { AddColumnCreateadAtInTableCollection1711466189735 } from './migrations/1711466189735-add-column-createadAt-in-table-collection';
+import { CreateTableBook1711464123271 } from './migrations/1711464123271-create-table-book';
 
 @Module({
   imports: [
@@ -22,14 +24,15 @@ import { AddColumnCreateadAtInTableCollection1711466189735 } from './migrations/
           password: process.env.DB_PASSWORD,
           username: process.env.DB_USERNAME,
           database: process.env.DB_NAME,
-          entities: [User, Book, Collection],
+          entities: [User, Book, Collection, Author],
           migrationsRun: true,
           migrations: [
             CreateTableUsers1708892842623,
-            CreateTableBook1711462465555,
+            CreateTableAuthor1711464123269,
+            CreateTableGenre1711464123267,
+            CreateTablePublisher1711464123266,
             CreateTableCollection1711464123270,
-            AddColumnCollectionIdInTableCollection1711464743365,
-            AddColumnCreateadAtInTableCollection1711466189735,
+            CreateTableBook1711464123271,
           ],
         };
       },
