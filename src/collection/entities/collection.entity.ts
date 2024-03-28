@@ -1,4 +1,3 @@
-import { Book } from '../../book/entities/book.entity';
 import {
   Column,
   CreateDateColumn,
@@ -6,6 +5,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Book } from '../../book/entities/book.entity';
 
 @Entity({ name: 'collection' })
 export class Collection {

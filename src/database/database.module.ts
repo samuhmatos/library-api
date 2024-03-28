@@ -5,6 +5,8 @@ import { User } from 'src/user/entities/user.entity';
 import { Book } from 'src/book/entities/book.entity';
 import { Collection } from 'src/collection/entities/collection.entity';
 import { Author } from 'src/author/entities/author.entity';
+import { Genre } from 'src/genre/entities/genre.entity';
+import { Publisher } from 'src/publisher/entities/publisher.entity';
 
 import { CreateTableUsers1708892842623 } from './migrations/1708892842623-create-table-users';
 import { CreateTableAuthor1711464123269 } from './migrations/1711464123269-create-table-author';
@@ -24,7 +26,7 @@ import { CreateTableBook1711464123271 } from './migrations/1711464123271-create-
           password: process.env.DB_PASSWORD,
           username: process.env.DB_USERNAME,
           database: process.env.DB_NAME,
-          entities: [User, Book, Collection, Author],
+          entities: [User, Book, Collection, Author, Genre, Publisher],
           migrationsRun: true,
           migrations: [
             CreateTableUsers1708892842623,
