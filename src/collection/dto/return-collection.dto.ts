@@ -11,8 +11,7 @@ export class ReturnCollectionDto {
     this.id = collection.id;
     this.name = collection.name;
 
-    if (collection.books) {
+    if (collection.books)
       this.books = collection.books.map((book) => new ReturnBookDto(book));
-    }
   }
 }
