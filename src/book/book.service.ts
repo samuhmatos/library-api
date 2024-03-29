@@ -1,26 +1,99 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { Book } from './entities/book.entity';
+import { CollectionService } from '../collection/collection.service';
+import { AuthorService } from '../author/author.service';
+import { PublisherService } from '../publisher/publisher.service';
+import { GenreService } from '../genre/genre.service';
 
+export type BookRepository = Repository<Book>;
 @Injectable()
 export class BookService {
-  create(createBookDto: CreateBookDto) {
-    return 'This action adds a new book';
+  constructor(
+    @InjectRepository(Book)
+    private readonly bookRepository: BookRepository,
+
+    private readonly collectionService: CollectionService,
+    private readonly authorService: AuthorService,
+    private readonly publisherService: PublisherService,
+    private readonly genreService: GenreService,
+  ) {}
+
+  async create(createBookDto: CreateBookDto): Promise<Book> {
+    const collection = await this.collectionService.findById(
+      createBookDto.collection_id,
+    );
+
+    await this.authorService.findById(createBookDto.author_id);
+    await this.genreService.findById(createBookDto.genre_id);
+    await this.publisherService.findById(createBookDto.publisher_id);
+
+    const books = await this.findByCollectionIdAndTitle(
+      createBookDto.collection_id,
+      createBookDto.title,
+    );
+
+    if (books && books.length > 0) {
+      throw new BadRequestException(
+        `The Book's title: ${createBookDto.title} already exists in the Collection: ${collection.name}`,
+      );
+    }
+
+    return this.bookRepository.save({
+      ...createBookDto,
+    });
   }
 
-  findAll() {
-    return `This action returns all book`;
+  async findAll(): Promise<Book[]> {
+    return this.bookRepository.find({
+      relations: {
+        collection: true,
+        author: true,
+        genre: true,
+        publisher: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} book`;
+  async findById(id: number): Promise<Book> {
+    const book = await this.bookRepository.findOne({ where: { id } });
+
+    if (!book) {
+      throw new NotFoundException(`Book id: ${id} not found`);
+    }
+
+    return book;
   }
 
-  update(id: number, updateBookDto: UpdateBookDto) {
-    return `This action updates a #${id} book`;
+  private async findByCollectionIdAndTitle(
+    collection_id: number,
+    title: string,
+  ): Promise<Book[]> {
+    return this.bookRepository.find({
+      where: { collection_id, title },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} book`;
+  async update(id: number, updateBookDto: UpdateBookDto) {
+    const book = await this.findById(id);
+
+    return this.bookRepository.save({
+      ...book,
+      ...updateBookDto,
+    });
+  }
+
+  async remove(id: number) {
+    await this.findById(id);
+
+    return this.bookRepository.delete({ id });
   }
 }

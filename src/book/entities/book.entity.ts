@@ -6,9 +6,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Publisher } from 'src/publisher/entities/publisher.entity';
-import { Genre } from 'src/genre/entities/genre.entity';
-import { Author } from 'src/author/entities/author.entity';
+import { Publisher } from '../../publisher/entities/publisher.entity';
+import { Genre } from '../../genre/entities/genre.entity';
+import { Author } from '../../author/entities/author.entity';
 import { Collection } from '../../collection/entities/collection.entity';
 
 @Entity({ name: 'book' })
