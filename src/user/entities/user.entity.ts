@@ -2,8 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Loan } from '../../loan/entities/loan.entity';
 
 @Entity({ name: 'user' })
 export class User {
@@ -26,4 +29,7 @@ export class User {
     type: 'timestamp',
   })
   created_at: Date;
+
+  @OneToMany(() => Loan, (loan) => loan.book)
+  loans?: Loan[];
 }

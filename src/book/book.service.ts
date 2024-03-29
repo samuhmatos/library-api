@@ -91,6 +91,12 @@ export class BookService {
     });
   }
 
+  async updateQuantity(id: number, newQuantity: number): Promise<Book> {
+    return this.update(id, {
+      quantity: newQuantity,
+    });
+  }
+
   async remove(id: number) {
     await this.findById(id);
 

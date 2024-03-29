@@ -4,12 +4,14 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Publisher } from '../../publisher/entities/publisher.entity';
 import { Genre } from '../../genre/entities/genre.entity';
 import { Author } from '../../author/entities/author.entity';
 import { Collection } from '../../collection/entities/collection.entity';
+import { Loan } from '../../loan/entities/loan.entity';
 
 @Entity({ name: 'book' })
 export class Book {
@@ -57,4 +59,7 @@ export class Book {
   @ManyToOne(() => Genre, (genre) => genre.books)
   @JoinColumn({ name: 'collection_id', referencedColumnName: 'id' })
   genre?: Genre;
+
+  @OneToMany(() => Loan, (loan) => loan.book)
+  loans?: Loan[];
 }

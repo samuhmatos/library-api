@@ -9,6 +9,7 @@ import { AuthorModule } from './author/author.module';
 import { GenreModule } from './genre/genre.module';
 import { PublisherModule } from './publisher/publisher.module';
 import { CollectionModule } from './collection/collection.module';
+import { LoanModule } from './loan/loan.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { CollectionModule } from './collection/collection.module';
     GenreModule,
     PublisherModule,
     CollectionModule,
+    LoanModule,
   ],
   controllers: [AppController],
   providers: [AppService],

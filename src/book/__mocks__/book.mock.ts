@@ -11,7 +11,7 @@ export const bookMock: Book = {
   genre_id: genreMock.id,
   publisher_id: publisherMock.id,
   created_at: new Date(),
-  quantity: 1,
+  quantity: 10,
   resume: 'Some resume',
   title: 'Book title',
 };
