@@ -13,7 +13,10 @@ import { UpdateGenreDto } from './dto/update-genre.dto';
 import { Genre } from './entities/genre.entity';
 import { ReturnDeleteResultDto } from '../dtos/return-delete-result.dto';
 import { ReturnGenreDto } from './dto/return-genre.dto';
+import { UserType } from '../user/enum/user-type.enum';
+import { Roles } from '../decorators/roles.decorator';
 
+@Roles(UserType.Admin)
 @Controller('genre')
 export class GenreController {
   constructor(private readonly genreService: GenreService) {}

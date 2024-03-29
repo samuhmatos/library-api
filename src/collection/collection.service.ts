@@ -41,6 +41,9 @@ export class CollectionService {
   async findById(id: number): Promise<Collection> {
     const collection = await this.collectionRepository.findOne({
       where: { id },
+      relations: {
+        books: true,
+      },
     });
 
     if (!collection) {

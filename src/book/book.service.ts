@@ -64,7 +64,15 @@ export class BookService {
   }
 
   async findById(id: number): Promise<Book> {
-    const book = await this.bookRepository.findOne({ where: { id } });
+    const book = await this.bookRepository.findOne({
+      where: { id },
+      relations: {
+        author: true,
+        publisher: true,
+        collection: true,
+        genre: true,
+      },
+    });
 
     if (!book) {
       throw new NotFoundException(`Book id: ${id} not found`);

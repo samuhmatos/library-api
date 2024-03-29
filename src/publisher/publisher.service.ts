@@ -36,7 +36,10 @@ export class PublisherService {
   }
 
   async findById(id: number): Promise<Publisher> {
-    const publisher = await this.publisherRepository.findOne({ where: { id } });
+    const publisher = await this.publisherRepository.findOne({
+      where: { id },
+      relations: { books: true },
+    });
 
     if (!publisher) {
       throw new NotFoundException(`Publisher id ${id} not found`);

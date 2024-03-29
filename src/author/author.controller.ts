@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { AuthorService } from './author.service';
 import { CreateAuthorDto } from './dto/create-author.dto';
@@ -13,7 +13,10 @@ import { UpdateAuthorDto } from './dto/update-author.dto';
 import { Author } from './entities/author.entity';
 import { ReturnAuthorDto } from './dto/return-author.dto';
 import { ReturnDeleteResultDto } from '../dtos/return-delete-result.dto';
+import { UserType } from '../user/enum/user-type.enum';
+import { Roles } from '../decorators/roles.decorator';
 
+@Roles(UserType.Admin)
 @Controller('author')
 export class AuthorController {
   constructor(private readonly authorService: AuthorService) {}
@@ -36,7 +39,7 @@ export class AuthorController {
     return new ReturnAuthorDto(author);
   }
 
-  @Patch(':id')
+  @Put(':id')
   async update(
     @Param('id') id: number,
     @Body() updateAuthorDto: UpdateAuthorDto,

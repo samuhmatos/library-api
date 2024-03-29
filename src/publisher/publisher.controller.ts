@@ -13,7 +13,10 @@ import { UpdatePublisherDto } from './dto/update-publisher.dto';
 import { Publisher } from './entities/publisher.entity';
 import { ReturnPublisherDto } from './dto/return-publisher.dto';
 import { ReturnDeleteResultDto } from '../dtos/return-delete-result.dto';
+import { UserType } from '../user/enum/user-type.enum';
+import { Roles } from '../decorators/roles.decorator';
 
+@Roles(UserType.Admin)
 @Controller('publisher')
 export class PublisherController {
   constructor(private readonly publisherService: PublisherService) {}

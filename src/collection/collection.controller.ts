@@ -14,7 +14,10 @@ import { UpdateCollectionDto } from './dto/update-collection.dto';
 import { Collection } from './entities/collection.entity';
 import { ReturnCollectionDto } from './dto/return-collection.dto';
 import { ReturnDeleteResultDto } from '../dtos/return-delete-result.dto';
+import { UserType } from '../user/enum/user-type.enum';
+import { Roles } from '../decorators/roles.decorator';
 
+@Roles(UserType.Admin)
 @Controller('collection')
 export class CollectionController {
   constructor(private readonly collectionService: CollectionService) {}

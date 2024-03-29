@@ -13,7 +13,10 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { Book } from './entities/book.entity';
 import { ReturnBookDto } from './dto/return-book.dto';
 import { ReturnDeleteResultDto } from '../dtos/return-delete-result.dto';
+import { UserType } from '../user/enum/user-type.enum';
+import { Roles } from '../decorators/roles.decorator';
 
+@Roles(UserType.Admin)
 @Controller('book')
 export class BookController {
   constructor(private readonly bookService: BookService) {}

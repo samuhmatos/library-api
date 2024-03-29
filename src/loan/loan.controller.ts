@@ -3,7 +3,10 @@ import { LoanService } from './loan.service';
 import { CreateLoanDto } from './dto/create-loan.dto';
 import { Loan } from './entities/loan.entity';
 import { ReturnLoanDto } from './dto/return-loan.dto';
+import { UserType } from '../user/enum/user-type.enum';
+import { Roles } from '../decorators/roles.decorator';
 
+@Roles(UserType.Admin)
 @Controller('loan')
 export class LoanController {
   constructor(private readonly loanService: LoanService) {}
