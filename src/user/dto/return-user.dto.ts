@@ -1,4 +1,4 @@
-import { ReturnLoanDto } from 'src/loan/dto/return-loan.dto';
+import { ReturnLoanDto } from '../../loan/dto/return-loan.dto';
 import { User } from '../entities/user.entity';
 
 export class ReturnUserDto {
