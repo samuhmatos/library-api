@@ -25,6 +25,12 @@ export class User {
   @Column()
   address?: string;
 
+  @Column()
+  password: string;
+
+  @Column()
+  type_user: number;
+
   @CreateDateColumn({
     type: 'timestamp',
   })
