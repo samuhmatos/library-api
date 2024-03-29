@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOperator, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { CreateLoanDto } from './dto/create-loan.dto';
 import { Loan } from './entities/loan.entity';

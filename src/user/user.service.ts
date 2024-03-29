@@ -3,8 +3,9 @@ import { DeleteResult, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { User } from './entities/user.entity';
-
 import { CreateUserDto, UpdateUserDto } from './dto';
+import { password } from '../utils/password';
+import { UserType } from './enum/user-type.enum';
 
 export type UserRepository = Repository<User>;
 
@@ -18,7 +19,13 @@ export class UserService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     await this.validate(createUserDto.email, createUserDto.phone);
 
-    return this.userRepository.save({ ...createUserDto });
+    const hashedPassword = await password.createHash(createUserDto.password);
+
+    return this.userRepository.save({
+      ...createUserDto,
+      type_user: createUserDto.type_user || UserType.User,
+      password: hashedPassword,
+    });
   }
 
   async findAll(): Promise<User[]> {

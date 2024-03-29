@@ -1,4 +1,5 @@
-import { IsEmail, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsOptional, IsString } from 'class-validator';
+import { UserType } from '../enum/user-type.enum';
 
 export class CreateUserDto {
   @IsEmail()
@@ -13,4 +14,11 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   address?: string;
+
+  @IsString()
+  password: string;
+
+  @IsOptional()
+  @IsEnum(UserType)
+  type_user?: UserType;
 }
