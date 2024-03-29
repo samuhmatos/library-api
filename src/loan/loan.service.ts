@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOperator, Repository } from 'typeorm';
 
 import { CreateLoanDto } from './dto/create-loan.dto';
 import { Loan } from './entities/loan.entity';
@@ -53,6 +53,9 @@ export class LoanService {
 
   async findAll(): Promise<Loan[]> {
     return this.loanRepository.find({
+      where: {
+        return_date: null,
+      },
       relations: {
         book: true,
         user: true,
